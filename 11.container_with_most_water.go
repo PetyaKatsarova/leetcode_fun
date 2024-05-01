@@ -1,8 +1,6 @@
 package main
 
-import "fmt"
-
-/*
+/* -- TAG -- medium
 You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith
  line are (i, 0) and (i, height[i]).
 Find two lines that together with the x-axis form a container, such that the container contains the most water.
@@ -20,18 +18,19 @@ n == height.length
 0 <= height[i] <= 10000
 */
 
-func main() {
-	fmt.Println("hallo world")
-	maxArea([]int{1,8,6,2,5,4,8,3,7}) // 49
-	maxArea([]int{1,1}) //1
-}
+// import "fmt"
+// func main() {
+// 	fmt.Println("hallo world")
+// 	maxArea([]int{1,8,6,2,5,4,8,3,7}) // 49
+// 	maxArea([]int{1,1}) //1
+// }
 
-func maxArea(height []int) int {
-	result := 0
-	for x, y := range height {
-		fmt.Println("x = ", x, "y = ", y)
-	}
+// func maxArea(height []int) int {
+// 	result := 0
+// 	for x, y := range height {
+// 		fmt.Println("x = ", x, "y = ", y)
+// 	}
 
-	fmt.Println("max area: ", result)
-	return result
-}
+// 	fmt.Println("max area: ", result)
+// 	return result
+// }

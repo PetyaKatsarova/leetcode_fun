@@ -1,10 +1,8 @@
 package main
 
-import "fmt"
-
 /*
--- MEDIUM DIFFICULTY ----- Given a string s, find the length of the longest substring without repeating characters.
-
+-- TAG: MEDIUM  -----
+Given a string s, find the length of the longest substring without repeating characters.
 Example 1:
 Input: s = "abcabcbb"
 Output: 3
@@ -26,6 +24,30 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 */
 
+import (
+	"fmt"
+)
+
 func main() {
 	fmt.Println("hello from 03 :)")
+	// fmt.Println("output of abcabcbb, expected 3, actual: ", lengthOfLongestSubstring("abcabcbb"))
+	// fmt.Println("output of bbbbb, expected 1, actual: ", lengthOfLongestSubstring("bbbbb"))
+	// fmt.Println("output of pwwkew, expected 3, actual: ", lengthOfLongestSubstring("pwwkew"))
+	fmt.Println("output of dvdf, expected 3, actual: ", lengthOfLongestSubstring("dvdf")) // vdf
+}
+
+func lengthOfLongestSubstring(s string) int {
+	mymap	:= make(map[rune]int)
+	maxLen 	:= 0
+	start	:= 0
+	for i, val := range s {
+		if j, ok := mymap[val]; ok && j >= start {
+			start = j + 1
+		}
+		mymap[val] = i
+		if curLen := i - start + 1; curLen > maxLen {
+			maxLen = curLen
+		}
+	}
+	return maxLen
 }
