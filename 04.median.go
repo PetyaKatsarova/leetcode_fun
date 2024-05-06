@@ -26,48 +26,48 @@ nums2.length == n
 */
 
 func main() {
-	findMedianSortedArrays([]int{1, 2}, []int{3, 4}) // 2.5
-	 findMedianSortedArrays([]int{1, 3}, []int{2})    // 2
+	fmt.Println(findMedianSortedArrays([]int{1, 2}, []int{3, 4})) // 2.5
+	fmt.Println(findMedianSortedArrays([]int{1, 3}, []int{2}))   // 2
 	fmt.Println(mergeArrays([]int{1, 2}, []int{3, 4}))
 	fmt.Println(mergeArrays([]int{1, 3}, []int{2}))
 }
 
-func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
-	median := 0.0
-	mergedArr := mergeArrays(nums1, nums2)
-	if len(mergedArr) % 2 == 0 { // even num
-		median = (float64(mergedArr[len(mergedArr) / 2]) + float64(mergedArr[(len(mergedArr) / 2) - 1])) / 2
-	} else { // odd num
-		median = float64(mergedArr[(len(mergedArr) / 2)])
-	}
+func mergeArrays(n1 []int, n2 []int) []int {
+	myArr 	:= make([]int, len(n1)+len(n2))
+	i, j, k	:= 0, 0, 0
 
-	fmt.Println("the median of the 2 arr is: ", median)
-	return median
-}
-
-func mergeArrays(nums1 []int, nums2 []int) []int {
-	mergedArr	:= make([]int, len(nums1)+len(nums2))
-	i, j, k		:= 0, 0, 0
-
-	for i < len(nums1) && j < len(nums2) {
-		if nums1[i] > nums2[j] {
-			mergedArr[k] = nums2[j]
-			j++
-		} else {
-			mergedArr[k] = nums1[i]
+	for i < len(n1) && j < len(n2) {
+		if n1[i] < n2[j] {
+			myArr[k] = n1[i]
 			i++
+		} else {
+			myArr[k] = n2[j]
+			j++
 		}
 		k++
 	}
-	for i < len(nums1) {
-		mergedArr[k] = nums1[i]
-		k++
+
+	for i < len(n1) {
+		myArr[k] = n1[i]
 		i++
-	}
-	for j < len(nums2) {
-		mergedArr[k] = nums2[j]
 		k++
-		j++
 	}
-	return mergedArr
+
+	for j < len(n2) {
+		myArr[k] = n2[j]
+		j++
+		k++
+	}
+
+	return myArr
+}
+
+func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	mergedArr  := mergeArrays(nums1, nums2)
+
+	if len(mergedArr) % 2 == 0 {
+		return (float64(mergedArr[len(mergedArr) / 2]) + float64(mergedArr[(len(mergedArr) / 2) - 1])) / 2
+	} else {
+		return float64(mergedArr[len(mergedArr) / 2]) // if len=5, 5/2 = 2 (index 2, 3rd middle num)
+	}
 }

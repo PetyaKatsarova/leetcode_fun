@@ -22,56 +22,56 @@ The number of nodes in each linked list is in the range [1, 100].
 It is guaranteed that the list represents a number that does not have leading zeros
 */
 
-// import (
-// 	"fmt"
-// )
+import (
+	"fmt"
+)
 
-// func main() {
-// 	fmt.Println("hello add 2 nums linked lists")
-// 	l1 		:= &ListNode{2, &ListNode{4, &ListNode{3, nil}}} // 243
-// 	l2 		:= &ListNode{5, &ListNode{6, &ListNode{4, nil}}} // 564
-// // 	Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
-// // Output: [8,9,9,9,0,0,0,1]
-// 	l3		:= &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, nil}}}}}}}
-// 	l4		:= &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, nil}}}}
-// 	result	:= addTwoNumbers(l1, l2) // [7,0,8]
-// 	//7->0->8
-// 	for result != nil {
-// 		fmt.Print(result.Val, ",")
-// 		result = result.Next
-// 	}
-// 	result2	:= addTwoNumbers(l3, l4) // [8,9,9,9,0,0,0,1]
-// 	fmt.Println("")
-// 	for result2 != nil {
-// 		fmt.Print(result2.Val, ",")
-// 		result2 = result2.Next
-// 	}
-// }
+func main() {
+	fmt.Println("hello add 2 nums linked lists")
+	l1 		:= &ListNode{2, &ListNode{4, &ListNode{3, nil}}} // 243
+	l2 		:= &ListNode{5, &ListNode{6, &ListNode{4, nil}}} // 564
+// 	Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+// Output: [8,9,9,9,0,0,0,1]
+	l3		:= &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, nil}}}}}}}
+	l4		:= &ListNode{9, &ListNode{9, &ListNode{9, &ListNode{9, nil}}}}
+	result	:= addTwoNumbers(l1, l2) // [7,0,8]
+	//7->0->8
+	for result != nil {
+		fmt.Print(result.Val, ",")
+		result = result.Next
+	}
+	result2	:= addTwoNumbers(l3, l4) // [8,9,9,9,0,0,0,1]
+	fmt.Println("")
+	for result2 != nil {
+		fmt.Print(result2.Val, ",")
+		result2 = result2.Next
+	}
+}
 
-// // Definition for singly-linked list.
-// type ListNode struct {
-// 	Val int
-// 	Next *ListNode
-// }
+// Definition for singly-linked list.
+type ListNode struct {
+	Val int
+	Next *ListNode
+}
 
-// func addTwoNumbers (l1 *ListNode, l2 *ListNode) *ListNode {
-// 	dummyHead	:= &ListNode{0, nil}
-// 	curr 		:= dummyHead
-// 	carryOver	:= 0
+func addTwoNumbers (l1 *ListNode, l2 *ListNode) *ListNode {
+	dummyHead	:= &ListNode{0, nil}
+	curr 		:= dummyHead
+	carryOver	:= 0
 
-// 	for l1 != nil || l2 != nil || carryOver != 0 {
-// 		sum := carryOver
-// 		if l1 != nil {
-// 			sum += l1.Val
-// 			l1 = l1.Next
-// 		}
-// 		if l2 != nil {
-// 			sum += l2.Val
-// 			l2 = l2.Next
-// 		}
-// 		carryOver = sum / 10
-// 		curr.Next = &ListNode{sum % 10, nil}
-// 		curr = curr.Next
-// 	}
-// 	return dummyHead.Next
-// }
+	for l1 != nil || l2 != nil || carryOver != 0 {
+		sum := carryOver
+		if l1 != nil {
+			sum += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			sum += l2.Val
+			l2 = l2.Next
+		}
+		carryOver = sum / 10
+		curr.Next = &ListNode{sum % 10, nil}
+		curr = curr.Next
+	}
+	return dummyHead.Next
+}
