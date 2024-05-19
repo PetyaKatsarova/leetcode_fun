@@ -1,7 +1,3 @@
-package main
-
-import "fmt"
-
 /*
 Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.
 The algorithm for myAtoi(string s) is as follows:
@@ -70,11 +66,74 @@ Constraints: 0 <= s.length <= 200
 s consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', and '.'.
 */
 
+package main
+
+import (
+	"fmt"
+	"regexp"
+	"unicode"
+)
+
 func main() {
-	fmt.Println("kuku lala")
+	fmt.Println("expected: 0; output: ", myAtoi("  -00kuku 0042v7"))
+	fmt.Println("expected: -42, output: ", myAtoi("  -042"))
+    fmt.Println("expected: 2147483646, output: ", myAtoi("2147483646"))
+	fmt.Println("expected: -2147483648, output: ", myAtoi("-91283472332"))
+	fmt.Println("expected: -2147483648, output: ", myAtoi(" -2147483649"))
 }
 
 func myAtoi(s string) int {
-    
-	return -1
+    if len(s) == 0 { return 0 }
+	isNeg := false
+	s = ignoreLeadingSpace(s)
+    if s == "" { return 0 }
+	if s[0] == '-' { // determine the sign: works
+		isNeg = true
+		s = s[1:]
+	} else if s[0] == '+' {
+        s = s[1:]
+    }
+	i := 0
+	for i < len(s) && s[i] == '0' { //Conversion: Read the integer by skipping leading zeros until a non-digit character is encountered or the end of the string is reached. If no digits were read,then the result is 0.
+		i++
+	}
+	if i == len(s) { // if there is no num in the string return 0
+		return 0
+	} else { s = s[i:] }
+	re          := regexp.MustCompile(`^\d+`) // starts with digit one or many digits; 	// encounter non digit character:
+	s           = re.FindString(s)
+	return numFromStr(s, isNeg)
+}
+
+func ignoreLeadingSpace(s string) string {
+    i := 0
+    for i < len(s) && unicode.IsSpace(rune(s[i])) { //1. ignore any leading whitespace: works
+		i++
+	}
+    if i == len(s) {
+        return ""
+    }
+	return s[i:]
+}
+
+func numFromStr(s string, isNeg bool) int {
+    max32Int    := 1<<31 - 1 // 2147483647
+	min32Int    := -1 << 31  // -2147483648
+	result      := 0
+
+	for i := range s { // convert string of digits to num
+		digit := int(s[i] - '0')
+
+		if result*10+digit > max32Int || result*10+digit < min32Int {
+			if isNeg {
+				return min32Int
+			}
+			return max32Int
+		}
+		result = result*10 + digit
+	}
+	if isNeg {
+		return -result
+	}
+    return result
 }
