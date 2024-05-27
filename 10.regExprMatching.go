@@ -49,54 +49,31 @@ func main() {
 }
 
 func isMatch(s string, p string) bool {
-	// 1. no . and no *
-	if !strings.Contains(p, "*") && !strings.Contains(p, ".") {
-		return noSpecialChars(s, p)
+	m, n := len(s), len(p)
+	dp := make([][]bool, m+1)
+	for i := range dp {
+		dp[i] = make([]bool, n+1)
 	}
+	dp[0][0] = true
 
-	// 2. only . (wild card)
-	if !strings.Contains(p, "*") && strings.Contains(p, ".") {
-		return onlyDot(s, p)
-	}
-	return false
-}
-
-func noSpecialChars(s string, p string) bool {
-	if len(s) != len(p) {
-		return false
-	}
-	i := 0
-	for i < len(s) {
-		if s[i] != p[i] {
-			return false
-		}
-		i++
-	}
-	return true
-}
-
-func onlyDot(s string, p string) bool {
-	if len(s) != len(p) {
-		return false
-	}
-	for i := range s {
-		if s[i] != p[i] && p[i] != '.' {
-			fmt.Println("len(s) & len(p): ", len(s), len(p), string(s[i]), string(p[i])) // isMatch("c4a4b", "c.a..b...")
-			return false
+	for j := 1; j <= n; j++ {
+		if p[j-1] == '*' {
+			dp[0][j] = dp[0][j-2]
 		}
 	}
-	return true
-}
 
-func starAndDot(s string, p string) bool { // isMatch("aa", "a*")
-	j := 0
-	for i := range s {
-		
+	for i := 1; i <= m; i++ {
+		for j := 1; j <= n; j++ {
+			if p[j-1] == '.' || p[j-1] == s[i-1] {
+				dp[i][j] = dp[i-1][j-1]
+			} else if p[j-1] == '*' {
+				dp[i][j] = dp[i][j-2]
+				if p[j-2] == '.' || p[j-2] == s[i-1] {
+					dp[i][j] = dp[i][j] || dp[i-1][j]
+				}
+			}
+		}
 	}
-	return true
+	return dp[m][n]
 }
-
-// 1. no . and no *: only chars
-// 2. only .
-// 3. * and .
 
