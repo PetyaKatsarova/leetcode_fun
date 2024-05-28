@@ -70,7 +70,7 @@ func romanToInt(s string) int {
    }
 
    result := 0
-   for i := 0; i < len(s) - 1; i++ {
+   for i := 0; i < len(s); i++ {
       if i < len(s) - 1 && numPair[s[i]] < numPair[s[i + 1]] {
          result -= numPair[s[i]]
       } else {
