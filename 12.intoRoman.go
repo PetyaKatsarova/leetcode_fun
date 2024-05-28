@@ -11,7 +11,7 @@ M	1000
 Roman numerals are formed by appending the conversions of decimal place values from highest to lowest. Converting a decimal place value into a Roman numeral
  has the following rules:
 If the value does not start with 4 or 9, select the symbol of the maximal value that can be subtracted from the input, append that symbol to the result,
- subtract its value, and convert the remainder to a Roman numeral.If the value starts with 4 or 9 use the subtractive form representing one symbol 
+ subtract its value, and convert the remainder to a Roman numeral.If the value starts with 4 or 9 use the subtractive form representing one symbol
  subtracted from the following symbol, for example, 4 is 1 (I) less than 5 (V): IV and 9 is 1 (I) less than 10 (X): IX. Only the following subtractive
   forms are used: 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD) and 900 (CM).Only powers of 10 (I, X, C, M) can be appended consecutively at most 3 times
    to represent multiples of 10. You cannot append 5 (V), 50 (L), or 500 (D) multiple times. If you need to append a symbol 4 times use the subtractive form.
@@ -44,6 +44,39 @@ Explanation:
  900 = CM
   90 = XC
    4 = IV
- 
+
 Constraints: 1 <= num <= 3999
 */
+
+package main
+
+import "fmt"
+
+func main() {
+   fmt.Print("expected: 3, output: ", romanToInt("III"))
+   fmt.Print("expected: 58, output: ", romanToInt("LVIII"))
+   fmt.Print("expected: 1994, output: ", romanToInt("MCMXCIV"))
+}
+
+func romanToInt(s string) int {
+   numPair := map[byte]int {
+      'I': 1,
+      'V': 5,
+      'X': 10,
+      'L': 50,
+      'C': 100,
+      'D': 500,
+      'M': 1000,
+   }
+
+   result := 0
+   for i := 0; i < len(s) - 1; i++ {
+      if i < len(s) - 1 && numPair[s[i]] < numPair[s[i + 1]] {
+         result -= numPair[s[i]]
+      } else {
+         result += numPair[s[i]]
+      }
+   }
+
+   return result
+}
