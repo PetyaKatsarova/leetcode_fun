@@ -53,30 +53,38 @@ package main
 import "fmt"
 
 func main() {
-   fmt.Print("expected: 3, output: ", romanToInt("III"))
-   fmt.Print("expected: 58, output: ", romanToInt("LVIII"))
-   fmt.Print("expected: 1994, output: ", romanToInt("MCMXCIV"))
+	fmt.Println("expected: MMMDCCXLIX, output: ", intToRoman(3749))
+	fmt.Println("expected: LVIII, output: ", intToRoman(58))
+	fmt.Println("expected: MCMXCIV, output: ", intToRoman(1994))
 }
 
-func romanToInt(s string) int {
-   numPair := map[byte]int {
-      'I': 1,
-      'V': 5,
-      'X': 10,
-      'L': 50,
-      'C': 100,
-      'D': 500,
-      'M': 1000,
+func intToRoman(num int) string {
+   roman := ""
+	numPairs := []struct {
+      Value    int
+      Symbol   string
+   } {
+      {1000, "M"},
+      {900, "CM"},
+      {500, "D"},
+      {400, "CD"},
+      {100, "C"},
+      {90, "XC"},
+      {50, "L"},
+      {40, "XL"},
+      {10, "X"},
+      {9, "IX"},
+      {5, "V"},
+      {4, "IV"},
+      {1, "I"},
    }
 
-   result := 0
-   for i := 0; i < len(s); i++ {
-      if i < len(s) - 1 && numPair[s[i]] < numPair[s[i + 1]] {
-         result -= numPair[s[i]]
-      } else {
-         result += numPair[s[i]]
+   for _, pair := range numPairs {
+      for num >= pair.Value {
+         roman += pair.Symbol
+         num -= pair.Value
       }
    }
-
-   return result
+  
+    return roman
 }
