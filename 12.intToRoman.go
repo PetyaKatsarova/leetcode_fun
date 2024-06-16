@@ -50,41 +50,64 @@ Constraints: 1 <= num <= 3999
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println("expected: MMMDCCXLIX, output: ", intToRoman(3749))
 	fmt.Println("expected: LVIII, output: ", intToRoman(58))
 	fmt.Println("expected: MCMXCIV, output: ", intToRoman(1994))
+   fmt.Println("entered 0 ", intToRoman(0))
 }
 
 func intToRoman(num int) string {
-   roman := ""
-	numPairs := []struct {
-      Value    int
-      Symbol   string
-   } {
-      {1000, "M"},
-      {900, "CM"},
-      {500, "D"},
-      {400, "CD"},
-      {100, "C"},
-      {90, "XC"},
-      {50, "L"},
-      {40, "XL"},
-      {10, "X"},
-      {9, "IX"},
-      {5, "V"},
-      {4, "IV"},
-      {1, "I"},
-   }
+   if num == 0 { return "Invalid input: put a num between 1 and 3999"}
 
-   for _, pair := range numPairs {
-      for num >= pair.Value {
-         roman += pair.Symbol
-         num -= pair.Value
+   roman    := ""
+   numbers  := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+   symbols  := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
+
+   for i := 0; i < len(symbols); i++ {
+      for num >= numbers[i] {
+         roman += symbols[i]
+         num -= numbers[i]
       }
    }
-  
-    return roman
+   return roman
 }
+
+
+// slower and using more memory init solution:
+// func intToRoman(num int) string {
+//    if num == 0 {
+//       return "Invalid input: enter num between 1 and 3999"
+//    }
+//    roman    := ""
+//    numsPair := []struct{
+//       Num      int
+//       Symbol   string
+//    } {
+//       {1000, "M"},
+//       {900, "CM"},
+//       {500, "D"},
+//       {400, "CD"},
+//       {100, "C"},
+//       {90, "XC"},
+//       {50, "L"},
+//       {40, "XL"},
+//       {10, "X"},
+//       {9, "IX"},
+//       {5, "V"},
+//       {4, "IV"},
+//       {1, "I"},
+//    }
+
+//    for _, val := range numsPair {
+//       for num >= val.Num {
+//          roman += val.Symbol
+//          num -= val.Num
+//       }
+//    }
+//    return roman
+// }
