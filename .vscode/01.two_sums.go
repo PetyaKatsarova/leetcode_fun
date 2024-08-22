@@ -1,6 +1,6 @@
 package main
 
-// import "fmt"
+import "fmt"
 
 /* -- TAG: EASY  ---
 https://leetcode.com/problems/trapping-rain-water/description/
@@ -24,28 +24,35 @@ Constraints:
 Only one valid answer exists.
 */
 
+func main() {
+	fmt.Println("hello 2 sums :)")
+	fmt.Println(twoSum([]int{2,7,11,15}, 9)) // [0,1]
+	fmt.Println(twoSum([]int{3,2,4}, 6)) // [1,2]
+}
 
 
-
-
-// func main() {
-// 	fmt.Println("hellow 2 sums :)")
-// 	twosums([]int{2,7,11,15}, 9) // [0,1]
-// 	twosums([]int{3,2,4}, 6) // [1,2]
-// }
-
-
-// func twosums(nums []int, n int) (result []int) {
-// 	mymap := make(map[int]int)
-// 	for i, val := range nums {
-// 		remainder := n - val
-// 		if j, ok := mymap[remainder]; ok {
-// 			fmt.Println("result: ", j, i)
-// 			return []int{j, i}
+// too slow: double loop
+// func twoSum(nums []int, target int) []int {
+// 	for i := 0; i < len(nums); i++ {
+// 		for j := i+1; j < len(nums); j++ {
+// 			if nums[i]+nums[j]==target {
+// 				return []int{i, j}
+// 			}
 // 		}
-// 		mymap[val] = i
 // 	}
-// 	fmt.Println(result)
-// 	return result
+// 	return []int{-1, -1}
 // }
+
+
+func twoSum(nums []int, target int) []int {
+	mymap := make(map[int]int);
+	for i, val := range nums {
+		remainder := target - val;
+		if j, ok := mymap[remainder]; ok {
+			return []int{i,j}
+		}
+		mymap[val] = i;
+	}
+	return []int{-1,-1}
+}
 
