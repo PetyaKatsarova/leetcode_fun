@@ -65,8 +65,10 @@ It is guaranteed that s is a valid roman numeral in the range [1, 3999]. MMM=300
     }
 }
 Map.ofEntries() allows you to add more than 10 entries (which is the limit for Map.of()), and uses Map.entry() to add the entries in a readable manner.
+
+NB: Runtime 4 ms Beats 67.30% Memory 44.31 MB Beats 91.55%
 */
-public class _13_Roman_to_int {
+public class _13_RomanToInt {
     private final static Map<String, Integer> TABLE = Map.ofEntries(
             entry("I", 1),
             entry("IV", 4),
