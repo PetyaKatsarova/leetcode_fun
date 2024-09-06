@@ -64,9 +64,10 @@ class _12_IntToRoman {
     }
 
     public static void main(String[] args) {
-        System.out.println("1994 = " + intToRoman(1994)); // MCMXCIV
-        System.out.println("3 = " + intToRoman(3)); // III
-        System.out.println("58 = " + intToRoman(58)); // LVIII
-        System.out.println("1004 = " + intToRoman(1004)); // MIV
+//        System.out.println("1994 = " + intToRoman(1994)); // MCMXCIV
+//        System.out.println("3 = " + intToRoman(3)); // III
+//        System.out.println("58 = " + intToRoman(58)); // LVIII
+//        System.out.println("1004 = " + intToRoman(1004)); // MIV
+        System.out.println("353 = " + intToRoman(353)); //
     }
 }
