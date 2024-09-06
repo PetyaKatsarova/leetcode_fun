@@ -99,6 +99,9 @@ public class _13_RomanToInt {
        }
         return result;
     }
+    /**
+     * call in bash terminal from folder java: java org/example/solutions/_13_RomanToInt.java
+     * */
     public static void main(String[] args) {
         System.out.println("MCMXCIV(1994) = " + convertRom2Int("MCMXCIV")); // 1994
         System.out.println("LVIII(58)= " + convertRom2Int("LVIII")); // 58
